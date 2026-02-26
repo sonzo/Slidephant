@@ -43,6 +43,8 @@ jobs:
         run: npx terser Slidephant.temp.js -o Slidephant.min.js -c -m
       - name: Cleanup temp file
         run: rm Slidephant.temp.js
+      - name: Verify minified files
+        run: ls -la Slidephant.min.*
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
