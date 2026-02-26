@@ -1,0 +1,85 @@
+/*
+Slidephant.css: Basic slideshow styling
+
+MIT License
+Copyright (c) 2026 Slidephant contributors
+See Slidephant.js for full license text.
+*/
+
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
+  overflow: hidden !important;
+  font-size: 2vw;
+  margin: 0;
+  padding: 0;
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+#slidephant-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  background: #222;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
+  padding: 2em;
+  box-sizing: border-box;
+  transition: background 0.3s;
+}
+@media (prefers-color-scheme: light) {
+  #slidephant-container {
+    background: #fff;
+    color: #222;
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
+  }
+  body {
+    background-color: #222;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  #slidephant-container {
+    background: #222;
+    color: #fff;
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
+  }
+  body {
+    background-color: #fff;
+  }
+}
+
+#slidephant-bottom-panel-global {
+  display: none;
+}
+
+#slidephant-logo {
+  position: absolute;
+  bottom: 0px;
+  right: 8px;
+  height: clamp(24px, 5vw, 56px);
+  width: auto;
+  opacity: 0.92;
+  pointer-events: auto;
+  z-index: 10000;
+}
+
+#slidephant-container > * {
+  width: 100%;
+  text-align: center;
+}
