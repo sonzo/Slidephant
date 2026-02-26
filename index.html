@@ -2,19 +2,65 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Slidephant - A lightweight JavaScript slideshow engine with keyboard navigation. Easy to use, no dependencies, MIT licensed."
+    />
+    <meta
+      name="keywords"
+      content="slideshow, presentation, javascript, slidephant, slides"
+    />
+    <meta name="author" content="Slidephant contributors" />
     <title>Slidephant Slideshow Example</title>
     <script src="Slidephant.js"></script>
   </head>
   <body>
-    <script>
-      AddSlide(
-        "<h1>Welcome to Slidephant</h1><p>Press Enter or → for next, ← for previous.</p>",
-      );
-      AddSlide(
-        "<h2>Second Slide</h2><ul><li>Easy to use</li><li>Keyboard navigation</li></ul>",
-      );
-      AddSlide("<h2>Third Slide</h2><p>Custom HTML content supported!</p>");
-      SlidephantInit();
-    </script>
+    <section>
+      <h1>Welcome to</h1>
+      <img src="slidephant.png" alt="Slidephant Logo" style="width: 150px" />
+      <p>Press Enter or → for next, ← for previous.</p>
+    </section>
+    <section>
+      <ul>
+        <li>Easy to use</li>
+        <li>Keyboard navigation</li>
+      </ul>
+    </section>
+    <section>
+      <h2>How to Setup Slidephant</h2>
+      <ol>
+        <li>Include Slidephant.js in your HTML head</li>
+        <li>Add your slides as &lt;section&gt; elements in the body</li>
+        <li>Slidephant auto-initializes on page load</li>
+        <li>Navigate with arrow keys or Enter</li>
+      </ol>
+    </section>
+    <section>
+      <pre
+        style="
+          text-align: left;
+          font-size: 0.8em;
+          background: rgba(255, 255, 255, 0.1);
+          padding: 1em;
+          border-radius: 4px;
+        "
+      >
+&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;script src="Slidephant.js"&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;section&gt;
+      &lt;h1&gt;First Slide&lt;/h1&gt;
+    &lt;/section&gt;
+    &lt;section&gt;
+      &lt;h2&gt;Second Slide&lt;/h2&gt;
+    &lt;/section&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre
+      >
+    </section>
   </body>
 </html>

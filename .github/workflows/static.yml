@@ -31,13 +31,25 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Minify CSS
+        run: npx csso Slidephant.css -o Slidephant.min.css
+      - name: Create minified JS with minified CSS reference
+        run: sed "s/Slidephant\.css/Slidephant.min.css/g" Slidephant.js > Slidephant.temp.js
+      - name: Minify JavaScript
+        run: npx terser Slidephant.temp.js -o Slidephant.min.js -c -m
+      - name: Cleanup temp file
+        run: rm Slidephant.temp.js
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: '.'
+          path: "."
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

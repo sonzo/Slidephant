@@ -70,16 +70,30 @@ body {
 
 #slidephant-logo {
   position: absolute;
-  bottom: 0px;
-  right: 8px;
-  height: clamp(24px, 5vw, 56px);
+  bottom: 15px;
+  right: 18px;
+  height: clamp(20px, 2vw, 40px);
   width: auto;
   opacity: 0.92;
   pointer-events: auto;
   z-index: 10000;
 }
 
-#slidephant-container > * {
+#slidephant-container > section {
   width: 100%;
   text-align: center;
+  display: none;
+}
+
+#slidephant-container > section:first-child {
+  display: block;
+}
+
+#slidephant-container ul,
+#slidephant-container ol {
+  list-style-position: outside;
+  padding-left: 1.5em;
+  margin: 0 auto;
+  display: inline-block;
+  text-align: left;
 }

@@ -24,7 +24,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 (function(){
-    var slides = [];
     var currentSlide = 0;
     var slideContainer = null;
 
@@ -40,27 +39,34 @@ SOFTWARE.
     }
 
     function updateURL() {
-        var hash = '#' + (currentSlide + 1);
+        var slideCount = slideContainer ? slideContainer.querySelectorAll('section').length : 0;
+        var hash = '#' + (currentSlide + 1) + '/' + slideCount;
         if (window.location.hash !== hash) {
             window.location.hash = hash;
         }
     }
 
     function getSlideFromURL() {
-        var n = parseInt(window.location.hash.replace('#', ''), 10);
-        if (!isNaN(n) && n > 0 && n <= slides.length) {
+        var hash = window.location.hash.replace('#', '');
+        var n = parseInt(hash.split('/')[0], 10);
+        var slideCount = slideContainer ? slideContainer.querySelectorAll('section').length : 0;
+        if (!isNaN(n) && n > 0 && n <= slideCount) {
             return n - 1;
         }
         return 0;
     }
 
-    window.AddSlide = function(htmlContent) {
-        slides.push(htmlContent);
-    };
-
     function renderSlide() {
         if (!slideContainer) return;
-        slideContainer.innerHTML = slides[currentSlide] || '';
+        
+        var sections = slideContainer.querySelectorAll('section');
+        sections.forEach(function(section, index) {
+            if (index === currentSlide) {
+                section.style.display = 'block';
+            } else {
+                section.style.display = 'none';
+            }
+        });
 
         if (!document.getElementById('slidephant-logo')) {
             var logo = document.createElement('img');
@@ -70,12 +76,12 @@ SOFTWARE.
             logo.title = 'Slidephant - MIT License';
             document.body.appendChild(logo);
         }
-        slideContainer.style.height = '';
         updateURL();
     }
 
     function nextSlide() {
-        if (currentSlide < slides.length - 1) {
+        var slideCount = slideContainer ? slideContainer.querySelectorAll('section').length : 0;
+        if (currentSlide < slideCount - 1) {
             currentSlide++;
             renderSlide();
         }
@@ -98,12 +104,18 @@ SOFTWARE.
 
     function initSlidephant() {
         attachCSS();
+        
         slideContainer = document.getElementById('slidephant-container');
         if (!slideContainer) {
             slideContainer = document.createElement('div');
             slideContainer.id = 'slidephant-container';
             document.body.appendChild(slideContainer);
         }
+        
+        var sections = document.querySelectorAll('body > section');
+        sections.forEach(function(section) {
+            slideContainer.appendChild(section);
+        });
 
         currentSlide = getSlideFromURL();
         renderSlide();
@@ -111,7 +123,8 @@ SOFTWARE.
 
         window.addEventListener('hashchange', function() {
             var idx = getSlideFromURL();
-            if (idx !== currentSlide && idx >= 0 && idx < slides.length) {
+            var slideCount = slideContainer.querySelectorAll('section').length;
+            if (idx !== currentSlide && idx >= 0 && idx < slideCount) {
                 currentSlide = idx;
                 renderSlide();
             }
@@ -119,4 +132,10 @@ SOFTWARE.
     }
 
     window.SlidephantInit = initSlidephant;
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSlidephant);
+    } else {
+        initSlidephant();
+    }
 })();
