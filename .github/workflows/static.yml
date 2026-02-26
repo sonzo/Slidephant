@@ -36,7 +36,7 @@ jobs:
         with:
           node-version: "20"
       - name: Minify CSS
-        run: npx csso Slidephant.css -o Slidephant.min.css
+        run: npx clean-css-cli -o Slidephant.min.css Slidephant.css
       - name: Create minified JS with minified CSS reference
         run: sed "s/Slidephant\.css/Slidephant.min.css/g" Slidephant.js > Slidephant.temp.js
       - name: Minify JavaScript
