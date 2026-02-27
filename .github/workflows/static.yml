@@ -45,15 +45,18 @@ jobs:
         run: rm Slidephant.temp.js
       - name: Verify minified files
         run: ls -la Slidephant.min.*
+      - name: Copy files to deployment directory
+        run: |
+          mkdir -p _site
+          cp -r * _site/ 2>/dev/null || true
+          cp -r .[^.]* _site/ 2>/dev/null || true
+          ls -la _site/
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: List files before upload
-        run: ls -la
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: "."
+          path: "_site"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
