@@ -26,6 +26,16 @@ SOFTWARE.
 (function(){
     var currentSlide = 0;
     var slideContainer = null;
+    var scriptPath = (function() {
+        var scripts = document.getElementsByTagName('script');
+        for (var i = scripts.length - 1; i >= 0; i--) {
+            if (scripts[i].src && scripts[i].src.indexOf('Slidephant.js') !== -1) {
+                var src = scripts[i].src;
+                return src.substring(0, src.lastIndexOf('/') + 1);
+            }
+        }
+        return '';
+    })();
 
     function attachCSS() {
         if (!document.getElementById('slidephant-css')) {
@@ -33,7 +43,7 @@ SOFTWARE.
             link.id = 'slidephant-css';
             link.rel = 'stylesheet';
             link.type = 'text/css';
-            link.href = 'Slidephant.css';
+            link.href = scriptPath + 'Slidephant.css';
             document.head.appendChild(link);
         }
     }
@@ -71,7 +81,7 @@ SOFTWARE.
         if (!document.getElementById('slidephant-logo')) {
             var logo = document.createElement('img');
             logo.id = 'slidephant-logo';
-            logo.src = 'Slidephant.png';
+            logo.src = scriptPath + 'Slidephant.png';
             logo.alt = 'Slidephant Logo';
             logo.title = 'Slidephant - MIT License';
             document.body.appendChild(logo);
