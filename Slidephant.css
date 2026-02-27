@@ -51,6 +51,15 @@ body {
   body {
     background-color: #222;
   }
+  #slidephant-container a {
+    color: #0056b3;
+  }
+  #slidephant-container a:visited {
+    color: #004499;
+  }
+  #slidephant-container a:hover {
+    color: #003d82;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -61,6 +70,15 @@ body {
   }
   body {
     background-color: #fff;
+  }
+  #slidephant-container a {
+    color: #66b3ff;
+  }
+  #slidephant-container a:visited {
+    color: #88c5ff;
+  }
+  #slidephant-container a:hover {
+    color: #99d1ff;
   }
 }
 
