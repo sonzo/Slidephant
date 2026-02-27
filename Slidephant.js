@@ -23,10 +23,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-(function(){
+(function () {
     var currentSlide = 0;
     var slideContainer = null;
-    var scriptPath = (function() {
+    var scriptPath = (function () {
         var scripts = document.getElementsByTagName('script');
         for (var i = scripts.length - 1; i >= 0; i--) {
             if (scripts[i].src && scripts[i].src.indexOf('Slidephant.js') !== -1) {
@@ -68,9 +68,9 @@ SOFTWARE.
 
     function renderSlide() {
         if (!slideContainer) return;
-        
+
         var sections = slideContainer.querySelectorAll('section');
-        sections.forEach(function(section, index) {
+        sections.forEach(function (section, index) {
             if (index === currentSlide) {
                 section.style.display = 'block';
             } else {
@@ -86,7 +86,22 @@ SOFTWARE.
             logo.title = 'Slidephant - MIT License';
             document.body.appendChild(logo);
         }
+
+        updateSlideButtonStates();
         updateURL();
+    }
+
+    function updateSlideButtonStates() {
+        var slideCount = slideContainer ? slideContainer.querySelectorAll('section').length : 0;
+        var prevBtn = document.getElementById('slidephant-prev-btn');
+        var nextBtn = document.getElementById('slidephant-next-btn');
+
+        if (prevBtn) {
+            prevBtn.disabled = currentSlide === 0;
+        }
+        if (nextBtn) {
+            nextBtn.disabled = currentSlide >= slideCount - 1;
+        }
     }
 
     function nextSlide() {
@@ -114,24 +129,45 @@ SOFTWARE.
 
     function initSlidephant() {
         attachCSS();
-        
+
         slideContainer = document.getElementById('slidephant-container');
         if (!slideContainer) {
             slideContainer = document.createElement('div');
             slideContainer.id = 'slidephant-container';
             document.body.appendChild(slideContainer);
         }
-        
+
         var sections = document.querySelectorAll('body > section');
-        sections.forEach(function(section) {
+        sections.forEach(function (section) {
             slideContainer.appendChild(section);
         });
+
+        // Create navigation buttons
+        if (!document.getElementById('slidephant-prev-btn')) {
+            var prevBtn = document.createElement('button');
+            prevBtn.id = 'slidephant-prev-btn';
+            prevBtn.className = 'slidephant-nav-btn';
+            prevBtn.innerHTML = '&#10094;';
+            prevBtn.title = 'Previous slide (Left arrow key)';
+            prevBtn.addEventListener('click', prevSlide);
+            document.body.appendChild(prevBtn);
+        }
+
+        if (!document.getElementById('slidephant-next-btn')) {
+            var nextBtn = document.createElement('button');
+            nextBtn.id = 'slidephant-next-btn';
+            nextBtn.className = 'slidephant-nav-btn';
+            nextBtn.innerHTML = '&#10095;';
+            nextBtn.title = 'Next slide (Right arrow key)';
+            nextBtn.addEventListener('click', nextSlide);
+            document.body.appendChild(nextBtn);
+        }
 
         currentSlide = getSlideFromURL();
         renderSlide();
         document.addEventListener('keydown', handleKey);
 
-        window.addEventListener('hashchange', function() {
+        window.addEventListener('hashchange', function () {
             var idx = getSlideFromURL();
             var slideCount = slideContainer.querySelectorAll('section').length;
             if (idx !== currentSlide && idx >= 0 && idx < slideCount) {
@@ -142,7 +178,7 @@ SOFTWARE.
     }
 
     window.SlidephantInit = initSlidephant;
-    
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initSlidephant);
     } else {

@@ -19,6 +19,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 body {
   width: 100vw;
   height: 100vh;
@@ -42,21 +43,26 @@ body {
   box-sizing: border-box;
   transition: background 0.3s;
 }
+
 @media (prefers-color-scheme: light) {
   #slidephant-container {
     background: #fff;
     color: #222;
     box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
   }
+
   body {
     background-color: #222;
   }
+
   #slidephant-container a {
     color: #0056b3;
   }
+
   #slidephant-container a:visited {
     color: #004499;
   }
+
   #slidephant-container a:hover {
     color: #003d82;
   }
@@ -68,15 +74,19 @@ body {
     color: #fff;
     box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3);
   }
+
   body {
     background-color: #fff;
   }
+
   #slidephant-container a {
     color: #66b3ff;
   }
+
   #slidephant-container a:visited {
     color: #88c5ff;
   }
+
   #slidephant-container a:hover {
     color: #99d1ff;
   }
@@ -97,13 +107,58 @@ body {
   z-index: 10000;
 }
 
-#slidephant-container > section {
+.slidephant-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  font-size: clamp(20px, 3vw, 48px);
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+  z-index: 9999;
+  transition: background-color 0.3s, opacity 0.3s;
+  opacity: 0.7;
+}
+
+.slidephant-nav-btn:hover:not(:disabled) {
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 1;
+}
+
+.slidephant-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+#slidephant-prev-btn {
+  left: 15px;
+}
+
+#slidephant-next-btn {
+  right: 15px;
+}
+
+@media (prefers-color-scheme: light) {
+  .slidephant-nav-btn {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #222;
+  }
+
+  .slidephant-nav-btn:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+#slidephant-container>section {
   width: 100%;
   text-align: center;
   display: none;
 }
 
-#slidephant-container > section:first-child {
+#slidephant-container>section:first-child {
   display: block;
 }
 
